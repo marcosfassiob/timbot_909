@@ -2,14 +2,6 @@ import { SlashCommandBuilder, SlashCommandSubcommandsOnlyBuilder } from "@discor
 import { CommandInteraction } from "discord.js";
 
 /**
- * A global type for command run functions, 
- * because I'm not writing this in a parameter
- * 
- * @param {CommandInteraction} interaction
- */
-type Callback = (interaction: CommandInteraction) => void;
-
-/**
  * A temp fix to an unholy slash command builder return type
  */
 type SlashCommandBuilderWrapper = SlashCommandBuilder 
@@ -25,7 +17,7 @@ type SlashCommandBuilderWrapper = SlashCommandBuilder
  */
 export class Command {
     public data: SlashCommandBuilderWrapper;
-    public run: Callback;
+    public run: (interaction: CommandInteraction) => void;
     
     /**
      * Default command constructor. Takes in a single object parameter with two fields:
@@ -35,10 +27,10 @@ export class Command {
      * @param {SlashCommandBuilder} options.data 
      * @param {Callback} options.run
      */
-    constructor(options: { data: SlashCommandBuilderWrapper, run: Callback }) {
+    constructor(options: { data: SlashCommandBuilderWrapper, run: (interaction: CommandInteraction) => void }) {
         this.data = options.data;
         this.run = options.run;
     }
 }
 
-export { Callback, SlashCommandBuilderWrapper };
+export { SlashCommandBuilderWrapper };

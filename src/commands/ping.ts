@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, CommandInteractionOptionResolver } from "discord.js";
+import { CommandInteraction } from "discord.js";
 import { Command } from "../structures/Command";
 
 export = new Command({

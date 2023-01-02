@@ -17,11 +17,9 @@ export = new Command({
         const embed: MessageEmbed = new MessageEmbed()
             .setColor('DARK_GREEN')
             .setTitle('List of commands for TimBot 909')
-            .setDescription(desc)
-            .setFooter('Did you know? This bot was originally intended to only play "Around the World" by Daft Punk.');
+            .setDescription(desc);
         await interaction.reply({
-            embeds: [ embed ],
-            ephemeral: true
+            embeds: [ embed ]
         })
     }
 })
