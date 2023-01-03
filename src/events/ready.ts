@@ -5,6 +5,6 @@ export default (client: Client): void => {
         client.user?.setActivity('/help', {
             type: ActivityType.Listening
         });
-        console.log('TimBot 909 status: Active')
+        console.log(`${client.user?.username} is online!`)
     });
 }
