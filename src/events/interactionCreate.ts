@@ -1,8 +1,8 @@
-import { Interaction, Client } from "discord.js";
+import { Interaction, Client, Events } from "discord.js";
 import { client_commands } from "..";
 
 export default (client: Client): void => { 
-    client.on('interactionCreate', async (interaction: Interaction) => {
+    client.on(Events.InteractionCreate, async (interaction: Interaction) => {
         if (!interaction.isCommand()) return;
         const command: any = client_commands.get(interaction.commandName);
         
