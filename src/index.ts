@@ -1,7 +1,7 @@
 // Global imports
 import { 
     Client, 
-    Intents, 
+    GatewayIntentBits, 
     Collection
 } from 'discord.js';
 import { REST } from '@discordjs/rest'
@@ -17,8 +17,8 @@ dotenv.config();
 
 const client = new Client({ //need to figure out how to assign a property to an object
     intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES,
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages
     ],
     allowedMentions: {
         repliedUser: false

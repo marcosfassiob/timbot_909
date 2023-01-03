@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from "@discordjs/builders";
+import { inlineCode, SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
 import { Command } from "../structures/Command";
 
@@ -7,6 +7,6 @@ export = new Command({
         .setName('ping')
         .setDescription('pong.'),
     run: async function(interaction: CommandInteraction) {
-        await interaction.reply('bong.');
+        await interaction.reply('pong!');
     }
-});
+})

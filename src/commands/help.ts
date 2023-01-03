@@ -1,5 +1,5 @@
-import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, MessageEmbed } from "discord.js";
+import { SlashCommandBuilder, EmbedBuilder } from "@discordjs/builders";
+import { CommandInteraction, Embed } from "discord.js";
 import { json_commands } from "..";
 import { Command } from "../structures/Command";
 
@@ -14,8 +14,8 @@ export = new Command({
             desc = desc.concat(`**${json_commands[i].name}:** ${json_commands[i].description}\n`)
         }
 
-        const embed: MessageEmbed = new MessageEmbed()
-            .setColor('DARK_GREEN')
+        const embed: EmbedBuilder = new EmbedBuilder()
+            .setColor(null)
             .setTitle('List of commands for TimBot 909')
             .setDescription(desc);
         await interaction.reply({
