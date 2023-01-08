@@ -1,21 +1,23 @@
-// Global imports
+// global imports
 import { 
     Client, 
     GatewayIntentBits, 
-    Collection
+    Collection,
+    Guild
 } from 'discord.js';
 import { REST } from '@discordjs/rest'
 import { Routes } from 'discord-api-types/v10' 
 import dotenv from 'dotenv';
 import fs from 'fs';
 
-// Local imports
+// local imports
 import interactionCreate from './events/interactionCreate';
 import ready from './events/ready';
+import { Command } from './structures/Command';
 
 dotenv.config();
 
-const client = new Client({ //need to figure out how to assign a property to an object
+const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages
@@ -25,15 +27,17 @@ const client = new Client({ //need to figure out how to assign a property to an 
     }
 });
 
-const json_commands: any[] = [];
-const commandFiles = fs.readdirSync(`${__dirname}/commands`).filter(file => file.endsWith('.ts'));
-const client_commands = new Collection();
+// create everything needed for commands
+const json_commands: Collection<string, Command>[] = [];
+const commandFiles: string[] = fs.readdirSync(`${__dirname}/commands`).filter(file => file.endsWith('.ts'));
+const client_commands: Collection<string, Command> = new Collection();
 
+// load commands
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
-    client_commands.set(command.data.name, command);
-    json_commands.push(command.data.toJSON());
-    console.log(`Loaded ${command.data.name}`);
+    client_commands.set(command.builder.name, command);
+    json_commands.push(command.builder.toJSON());
+    console.log(`Loaded ${command.builder.name}`);
 }
 
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN as string);
@@ -49,7 +53,6 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN as string);
 
 ready(client);
 interactionCreate(client);
+client.login(process.env.TOKEN);
 
-client.login(process.env.TOKEN); 
-
-export { client_commands, json_commands } // for my help command
+export { client, client_commands, json_commands } // for my help command

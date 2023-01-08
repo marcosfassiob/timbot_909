@@ -1,5 +1,6 @@
 import { SlashCommandBuilder, SlashCommandSubcommandsOnlyBuilder } from "@discordjs/builders";
-import { CommandInteraction } from "discord.js";
+import { ChatInputCommandInteraction } from "discord.js";
+import { CommandType } from "../util/CommandType";
 
 /**
  * A temp fix to an unholy slash command builder return type
@@ -16,21 +17,31 @@ type SlashCommandBuilderWrapper = SlashCommandBuilder
  * @version 10/27/2021
  */
 export class Command {
-    public data: SlashCommandBuilderWrapper;
-    public run: (interaction: CommandInteraction) => void;
+    public type: CommandType;
+    public usage: string;
+    public builder: SlashCommandBuilderWrapper;
+    public run: (interaction: ChatInputCommandInteraction) => void;
     
     /**
-     * Default command constructor. Takes in a single object parameter with two fields:
-     * one with a slash command builder to set up the slash command on Discord and
-     * the run function that executes the command.
+     * Default command constructor. Takes in a single object parameter with three fields:
+     * one with the metadata needed to identify the command, 
+     * one with a slash command builder to set up the 
+     * slash command on Discord and the run function that executes the command.
      * 
-     * @param {SlashCommandBuilder} options.data 
-     * @param {Callback} options.run
+     * @param {type} options.type
+     * @param {usage} options.usage
+     * @param {SlashCommandBuilder} options.builder 
+     * @param {(interaction: ChatInputCommandInteraction)} options.run
      */
-    constructor(options: { data: SlashCommandBuilderWrapper, run: (interaction: CommandInteraction) => void }) {
-        this.data = options.data;
+    constructor(options: { 
+        type: CommandType, 
+        usage: string,
+        builder: SlashCommandBuilderWrapper, 
+        run: (interaction: ChatInputCommandInteraction) => void 
+    }) {
+        this.type = options.type;
+        this.usage = options.usage;
+        this.builder = options.builder;
         this.run = options.run;
     }
 }
-
-export { SlashCommandBuilderWrapper };

@@ -5,6 +5,7 @@ import { CommandType } from "../util/CommandType";
 
 export = new Command({
     type: CommandType.Information,
+    usage: "/ping",
     builder: new SlashCommandBuilder()
         .setName('ping')
         .setDescription('pong.'),
