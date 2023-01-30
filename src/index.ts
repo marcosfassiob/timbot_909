@@ -1,15 +1,8 @@
-// global imports
-import { 
-    Client, 
-    GatewayIntentBits, 
-    Collection
-} from 'discord.js';
+import { Client, GatewayIntentBits, Collection } from 'discord.js';
 import { REST } from '@discordjs/rest'
 import { Routes } from 'discord-api-types/v10' 
 import dotenv from 'dotenv';
 import fs from 'fs';
-
-// local imports
 import interactionCreate from './events/interactionCreate';
 import ready from './events/ready';
 import { Command } from './structures/Command';
