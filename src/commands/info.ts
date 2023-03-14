@@ -2,7 +2,7 @@ import { EmbedBuilder, RGBTuple, SlashCommandBuilder } from "@discordjs/builders
 import { ChatInputCommandInteraction, User } from "discord.js";
 import { Command } from "../structures/Command";
 import { CommandType } from "../util/CommandType";
-import { embedColorCode } from "../../config.json"
+import { embedColorCode, botOwnerID } from "../../config.json"
 
 export = new Command({
     type: CommandType.Information,
@@ -17,8 +17,8 @@ export = new Command({
         const embed = new EmbedBuilder()
             .setColor(embedColorCode as RGBTuple)
             .setTitle(`About ${interaction.client.user.username}`)
-            .setDescription("placeholder")
-            .setFooter({ text: `Developed by ${(interaction.client.application.owner as User).tag}` })
+            .setDescription(`This bot is owned by **${(await interaction.client.users.fetch(botOwnerID)).tag}**.`)
+            .setFooter({ text: `Developed by ${(interaction.client.application.owner as User).tag}. DM me if you want a custom bot!`})
 
         return await interaction.reply({
             embeds: [ embed ]
